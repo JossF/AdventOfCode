@@ -37,12 +37,18 @@ def resolve_add(str_in):
     '2 * 23'
     >>> resolve_add("2 * 23")
     '46'
+    >>> resolve_add("15223 * 6 + ((2 * 8 * 2 * 9) + 9)")
+    '15223 * 6 + ((16 * 2 * 9) + 9)'
+    >>> resolve_add("2196 + (56 * 2 + (2 * 3 * 8) * 4) * 15 * 4")
+    '2196 + (112 + (2 * 3 * 8) * 4) * 15 * 4'
     """
     m_str = r"([0-9]+)[ ]*\*[ ]+([0-9]+)"
     p_str = r"([0-9]+)[ ]*\+[ ]+([0-9]+)"
     patterns = {
         "m": re.compile(m_str),
         "p": re.compile(p_str),
+        "lm": re.compile(r"\(" + m_str),
+        "lp": re.compile(r"\(" + p_str),
         "bm": re.compile(r"\(" + m_str + r"\)"),
         "bp": re.compile(r"\(" + p_str + r"\)"),
     }
@@ -50,17 +56,32 @@ def resolve_add(str_in):
         "m": lambda x: f"{int(x.group(1)) * int(x.group(2))}",
         "p": lambda x: f"{int(x.group(1)) + int(x.group(2))}",
         "bm": lambda x: f"{int(x.group(1)) * int(x.group(2))}",
-        "bp": lambda x: f"{int(x.group(1)) + int(x.group(2))}"
+        "bp": lambda x: f"{int(x.group(1)) + int(x.group(2))}",
+        "lm": lambda x: "(" + f"{int(x.group(1)) * int(x.group(2))}",
+        "lp": lambda x: "(" + f"{int(x.group(1)) + int(x.group(2))}"
     }
 
     def orderer(op_name):
         if op_name == "bp": return 0
         if op_name == "bm": return 1
-        if op_name == "p": return 2
-        return 3
+        if op_name == "lp": return 2
+        if op_name == "lm": return 4
+        if op_name == "p": return 3
+        return 5
 
-    indices = {(orderer(name), op.search(str_in).start()): name for name, op in patterns.items() if op.search(str_in)}
-    return patterns[indices[sorted(indices.keys())[0]]].sub(subs[indices[sorted(indices.keys())[0]]], str_in, 1)
+    indices = {(orderer(name), len(str_in) - op.search(str_in).start()): name for name, op in patterns.items() if
+               op.search(str_in)}
+    decided_op = indices[sorted(indices.keys())[0]]
+    if "m" in decided_op:
+        listed_p = str_in.split("+")
+        str_out = str_in
+        for i in reversed(range(len(listed_p))):
+            new_end = patterns[decided_op].sub(subs[decided_op], listed_p[i], 1)
+            str_out = "+".join(listed_p[:i] + [new_end] + listed_p[i+1:])
+            if str_in != str_out:
+                return str_out
+    str_out = patterns[decided_op].sub(subs[decided_op], str_in, 1)
+    return str_out
 
 
 def resolve_all(str_in, add=False, pp=False):
@@ -121,5 +142,6 @@ if __name__ == '__main__':
     import doctest
 
     doctest.testmod()
+    print(resolve_all("15223 * 6 + ((2 * 8 * 2 * 9) + 9)", add=True, pp=True))
     print(sum([int(i) for i in part_1()]))
     print(sum([int(i) for i in part_2()]))
