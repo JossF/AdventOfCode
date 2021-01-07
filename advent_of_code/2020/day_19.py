@@ -1,5 +1,6 @@
 import re
 import pandas
+import math
 
 rule_lengths = {}
 rule_manifests = {}
@@ -28,51 +29,41 @@ def load_rule(rule_id, rule_str):
         rule_manifests[rule_id] = manifests
 
 
-def load_rules():
-    data_rules = pandas.read_csv(r"C:\Users\Joss\PycharmProjects\pythonProject\advent_of_code\2020\day_19_rules.csv",
-                                 header=None)
-    data_msg = pandas.read_csv(r"C:\Users\Joss\PycharmProjects\pythonProject\advent_of_code\2020\day_19_msgs.csv",
-                               header=None)
-    rules_raw.update({d.split(":")[0]: d.split(":")[1] for d in data_rules[0].tolist()})
+def load_rules(rules, msgs):
+    rules_raw.update({d.split(":")[0]: d.split(":")[1] for d in rules[0].tolist()})
     for r_id, rule in rules_raw.items():
         load_rule(r_id, rule)
     load_rule("final", "11 | 11 31")
-    assert (rule_manifests['3'] == ["bb", "aa"])
+    # assert (rule_manifests['3'] == ["bb", "aa"])
     total = 0
     part_two_total = 0
-    l_42 = [len(i) == 8 for i in rule_manifests["42"]]
-    l_31 = [len(i) == 8 for i in rule_manifests["31"]]
+    l_42 = [len(i) == len(rule_manifests["42"][0]) for i in rule_manifests["42"]]
+    l_31 = [len(i) == len(rule_manifests["31"][0]) for i in rule_manifests["31"]]
+    split_len = len(rule_manifests["31"][0])
     assert all(l_42) and all(l_31)
-    for msg_rec in data_msg[0].tolist():
-        if divmod(len(msg_rec), 8)[1] != 0:
+    listed_msgs = msgs[0].tolist()
+    for msg_rec in listed_msgs:
+        if divmod(len(msg_rec), split_len)[1] != 0:
+            print(msg_rec)
             continue
         if msg_rec in rule_manifests["0"]:
             total += 1
             continue
-        msg_parts = [msg_rec[8 * i:8 * i + 8] for i in range(int(len(msg_rec) / 8))]
-        match_31 = True
-        match_42 = False
-        switcher = None
-        for i in reversed(range(len(msg_parts))):
-            if match_31:
-                if msg_parts[i] in rule_manifests["31"]:
-                    if all([x in rule_manifests["42"] for x in msg_parts[:i + 1]]):
-                        switcher = i
-                        break
-                    continue
-                else:
-                    match_31 = False
-                    match_42 = True
-                    switcher = i
-            if match_42:
-                if msg_parts[i] in rule_manifests["42"]:
-                    continue
-                else:
-                    match_42 = False
-        if (match_31 or match_42) and (switcher or 0) > -1 + len(msg_parts) / 2:
-            assert (all([x in rule_manifests["42"] for x in msg_parts[:switcher + 1]]))
-            assert (all([x in rule_manifests["31"] for x in msg_parts[switcher + 1:]]))
-            part_two_total += 1
+        msg_parts = [msg_rec[split_len * i:split_len * i + split_len] for i in range(int(len(msg_rec) / split_len))]
+        test31 = [m in rule_manifests["31"] for m in msg_parts]
+        test42 = [m in rule_manifests["42"] for m in msg_parts]
+        i = None
+        for i in range(math.ceil(len(msg_parts) / 2), len(msg_parts)):
+            combined_trues = test42[:i] + test31[i:]
+            if all(combined_trues) and len(test31[i:]) < len(test42[:i]):
+                assert (len(test31[i:]) < len(test42[:i]))
+                part_two_total += 1
+                print(f"Valid message from {i}: {msg_rec} \n 42: {test42} \n 31: {test31}")
+                i = None
+                break
+        if i is not None:
+            print(f"Not valid message: {msg_rec} \n 42: {test42} \n 31: {test31}")
+        # print(i)
 
     print(total)
     print(part_two_total)
@@ -80,4 +71,16 @@ def load_rules():
 
 
 if __name__ == '__main__':
-    load_rules()
+    # data_rules = pandas.read_csv(
+    #     r"C:\Users\Joss\PycharmProjects\pythonProject\advent_of_code\2020\day_19_rules_test.csv",
+    #     header=None)
+    # data_msg = pandas.read_csv(r"C:\Users\Joss\PycharmProjects\pythonProject\advent_of_code\2020\day_19_msg_test.csv",
+    #                            header=None)
+    # load_rules(rules=data_rules, msgs=data_msg)
+    # 277 is wrong
+    data_rules = pandas.read_csv(
+        r"C:\Users\Joss\PycharmProjects\pythonProject\advent_of_code\2020\day_19_rules.csv",
+        header=None)
+    data_msg = pandas.read_csv(r"C:\Users\Joss\PycharmProjects\pythonProject\advent_of_code\2020\day_19_msgs.csv",
+                               header=None)
+    load_rules(rules=data_rules, msgs=data_msg)
