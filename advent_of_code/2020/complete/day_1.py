@@ -14,7 +14,7 @@ def three_num(sub_list: list, target: float = 2020) -> (float, float):
 
 
 def main(level=1):
-    values = pandas.read_csv(r"C:\Users\Joss\PycharmProjects\pythonProject\advent_of_code\2020\day_1.tsv", sep='\t')
+    values = pandas.read_csv(r"/2020/complete/day_1.tsv", sep='\t')
     all_values = values.iloc[:, 0].tolist()
     if level == 1:
         return two_num(all_values) * (2020 - two_num(all_values))

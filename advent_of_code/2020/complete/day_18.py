@@ -123,7 +123,7 @@ def resolve_all(str_in, add=False, pp=False):
 
 
 def part_1():
-    lines = pandas.read_csv(r"C:\Users\Joss\PycharmProjects\pythonProject\advent_of_code\2020\day_18.csv", header=None)
+    lines = pandas.read_csv(r"/2020/complete/day_18.csv", header=None)
     vals = []
     for l in lines[0].tolist():
         vals.append(resolve_all(l))
@@ -131,7 +131,7 @@ def part_1():
 
 
 def part_2():
-    lines = pandas.read_csv(r"C:\Users\Joss\PycharmProjects\pythonProject\advent_of_code\2020\day_18.csv", header=None)
+    lines = pandas.read_csv(r"/2020/complete/day_18.csv", header=None)
     vals = []
     for l in lines[0].tolist():
         vals.append(resolve_all(l, add=True, pp=True))

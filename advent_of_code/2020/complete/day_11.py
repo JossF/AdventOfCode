@@ -115,9 +115,9 @@ def find_constant_seat_count(df, part=1):
 
 
 def main(part):
-    test_set = pandas.read_csv(r"C:\Users\Joss\PycharmProjects\pythonProject\advent_of_code\2020\day_11_test.csv",
+    test_set = pandas.read_csv(r"/2020/complete/day_11_test.csv",
                                header=None)
-    raw = pandas.read_csv(r"C:\Users\Joss\PycharmProjects\pythonProject\advent_of_code\2020\day_11.csv",
+    raw = pandas.read_csv(r"/2020/complete/day_11.csv",
                           header=None)
     raw_c = raw.copy()
     if part == 0:

@@ -15,7 +15,7 @@ def get_coords(d, r, max_d=323):
 
 
 def main(d, r):
-    raw = pandas.read_csv(r"C:\Users\Joss\PycharmProjects\pythonProject\advent_of_code\2020\day_3.csv",
+    raw = pandas.read_csv(r"/2020/complete/day_3.csv",
                           header=None)
 
     trees = 0

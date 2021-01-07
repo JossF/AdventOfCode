@@ -44,9 +44,9 @@ def apply(command, n, pos, dir):
 
 
 def main(part):
-    test_set = pandas.read_csv(r"C:\Users\Joss\PycharmProjects\pythonProject\advent_of_code\2020\day_12_test.csv",
+    test_set = pandas.read_csv(r"/2020/complete/day_12_test.csv",
                                header=None)
-    raw = pandas.read_csv(r"C:\Users\Joss\PycharmProjects\pythonProject\advent_of_code\2020\day_12.csv",
+    raw = pandas.read_csv(r"/2020/complete/day_12.csv",
                           header=None)
     raw_c = raw.copy()
     if part == 1:

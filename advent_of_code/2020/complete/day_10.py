@@ -52,7 +52,7 @@ def test_adapter_set(x):
 
 
 def main(part):
-    raw = pandas.read_csv(r"C:\Users\Joss\PycharmProjects\pythonProject\advent_of_code\2020\day_10.csv",
+    raw = pandas.read_csv(r"/2020/complete/day_10.csv",
                           header=None)
     if part == 1:
         return verify_set(raw[0].tolist(), 0, 163)

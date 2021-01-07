@@ -2,7 +2,7 @@ import pandas
 
 
 def main(part):
-    raw = pandas.read_csv(r"C:\Users\Joss\PycharmProjects\pythonProject\advent_of_code\2020\day_9.tsv",
+    raw = pandas.read_csv(r"/2020/complete/day_9.tsv",
                           header=None)
     possibilities = dict()
     broken_number = None

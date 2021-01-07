@@ -53,7 +53,7 @@ def run_program(start_index, data, check_for_switches):
 
 
 def main(part):
-    raw = pandas.read_csv(r"C:\Users\Joss\PycharmProjects\pythonProject\advent_of_code\2020\day_8.csv",
+    raw = pandas.read_csv(r"/2020/complete/day_8.csv",
                           header=None)
     total1, found_end, total2 = run_program(0, raw, True)
     if part == 1:

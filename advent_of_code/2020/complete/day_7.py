@@ -45,7 +45,7 @@ def to_l(x):
 
 
 def main(part):
-    raw = pandas.read_csv(r"C:\Users\Joss\PycharmProjects\pythonProject\advent_of_code\2020\day_7.tsv", sep='\t',
+    raw = pandas.read_csv(r"/2020/complete/day_7.tsv", sep='\t',
                           header=None)
     data = raw.copy()
     data['split'] = raw[0].apply(lambda x: x.split(":"))

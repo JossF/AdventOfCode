@@ -2,7 +2,7 @@ import pandas
 
 
 def get_other_tix():
-    return pandas.read_csv(r'C:\Users\Joss\PycharmProjects\pythonProject\advent_of_code\2020\day_16.csv', header=None)
+    return pandas.read_csv(r'/2020/complete/day_16.csv', header=None)
 
 
 pm = pandas.DataFrame(index=range(20), columns=range(20), data=1)

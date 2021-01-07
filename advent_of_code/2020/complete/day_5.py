@@ -20,7 +20,7 @@ def read_seat(seat_code):
 
 
 def main(part):
-    raw = pandas.read_csv(r"C:\Users\Joss\PycharmProjects\pythonProject\advent_of_code\2020\day_5.csv", sep='\t',
+    raw = pandas.read_csv(r"/2020/complete/day_5.csv", sep='\t',
                           header=None)
     raw_list = raw[0].tolist()
     comp_list = [read_seat(s) for s in raw_list]

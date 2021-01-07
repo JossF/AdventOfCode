@@ -10,7 +10,7 @@ def password_check_2(r):
 
 
 def main():
-    raw = pandas.read_csv(r"C:\Users\Joss\PycharmProjects\pythonProject\advent_of_code\2020\day_2.csv")
+    raw = pandas.read_csv(r"/2020/complete/day_2.csv")
     raw['acceptable_1'] = raw.apply(password_check_1, axis=1)
     raw['acceptable_2'] = raw.apply(password_check_2, axis=1)
     return len(raw[raw['acceptable_1']]), len(raw[raw['acceptable_2']])

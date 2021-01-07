@@ -2,7 +2,7 @@ import pandas
 
 
 def data_stream():
-    c = pandas.read_csv(r"C:\Users\Joss\PycharmProjects\pythonProject\advent_of_code\2020\day_14.csv")
+    c = pandas.read_csv(r"/2020/complete/day_14.csv")
     return c
 
 

@@ -2,7 +2,7 @@ import pandas
 
 
 def main():
-    raw = pandas.read_csv(r"C:\Users\Joss\PycharmProjects\pythonProject\advent_of_code\2020\day_4.csv", sep='\t',
+    raw = pandas.read_csv(r"/2020/complete/day_4.csv", sep='\t',
                           header=None)
     list_vals = raw[0].values
     first_3 = [[j[:3] for j in i.split(',')] for i in list_vals]

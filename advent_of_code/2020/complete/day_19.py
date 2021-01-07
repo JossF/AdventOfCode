@@ -79,8 +79,8 @@ if __name__ == '__main__':
     # load_rules(rules=data_rules, msgs=data_msg)
     # 277 is wrong
     data_rules = pandas.read_csv(
-        r"C:\Users\Joss\PycharmProjects\pythonProject\advent_of_code\2020\day_19_rules.csv",
+        r"/2020/complete/day_19_rules.csv",
         header=None)
-    data_msg = pandas.read_csv(r"C:\Users\Joss\PycharmProjects\pythonProject\advent_of_code\2020\day_19_msgs.csv",
+    data_msg = pandas.read_csv(r"/2020/complete/day_19_msgs.csv",
                                header=None)
     load_rules(rules=data_rules, msgs=data_msg)
